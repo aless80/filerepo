@@ -1,0 +1,22 @@
+{
+    "cseeenv": {
+        "awscloudformation": {
+            "AuthRoleName": "csee-cseeenv-20190724142250-authRole",
+            "UnauthRoleArn": "arn:aws:iam::605658216786:role/csee-cseeenv-20190724142250-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::605658216786:role/csee-cseeenv-20190724142250-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "csee-cseeenv-20190724142250-deployment",
+            "UnauthRoleName": "csee-cseeenv-20190724142250-unauthRole",
+            "StackName": "csee-cseeenv-20190724142250",
+            "StackId": "arn:aws:cloudformation:eu-central-1:605658216786:stack/csee-cseeenv-20190724142250/c0f2db60-ae0d-11e9-957e-026d43bbed96"
+        },
+        "categories": {
+            "auth": {
+                "cseef2d0e193": {}
+            },
+            "function": {
+                "ccsefunction": {}
+            }
+        }
+    }
+}

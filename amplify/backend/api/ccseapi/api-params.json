@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/projects",
+            "lambdaFunction": "ccsefunction",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "ccseapi",
+    "apiName": "ccseapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "ccsefunction"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "csee-cseeenv-20190724142250-authRole",
+        "unAuthRoleName": "csee-cseeenv-20190724142250-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "ccsefunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "939c28ed"
+}

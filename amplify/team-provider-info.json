@@ -18,5 +18,25 @@
                 "ccsefunction": {}
             }
         }
+    },
+    "env": {
+        "awscloudformation": {
+            "AuthRoleName": "csee-env-20190811174836-authRole",
+            "UnauthRoleArn": "arn:aws:iam::605658216786:role/csee-env-20190811174836-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::605658216786:role/csee-env-20190811174836-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "csee-env-20190811174836-deployment",
+            "UnauthRoleName": "csee-env-20190811174836-unauthRole",
+            "StackName": "csee-env-20190811174836",
+            "StackId": "arn:aws:cloudformation:eu-central-1:605658216786:stack/csee-env-20190811174836/7b335230-bc4f-11e9-a7ef-02d441bc2b52"
+        },
+        "categories": {
+            "auth": {
+                "cseef2d0e193": {}
+            },
+            "function": {
+                "ccsefunction": {}
+            }
+        }
     }
 }

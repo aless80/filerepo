@@ -1,5 +1,4 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 /backend_node/node_modules
 /backend_node/public/*
 /backend_node/private/*

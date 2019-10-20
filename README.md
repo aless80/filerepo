@@ -1,8 +1,17 @@
-# AWS-React-File-Repo **WORK IN PROGRESS!**
+# AWS-React-File-Repo 
 
+**WORK IN PROGRESS**
 React app for uploading/downloading files using AWS cloud services (Cognito User Pools, S3 storage, Apollo GraphQL API, etc)
 
 <!--
+DONE 20191017: downloadable files in ProjectList by setting public folder as public in aws console.
+TODO: test what I wrote in README > Additional configurations , in particular the bucket name
+TODO: no download for private files
+
+TODO: metadata; the get method in my Storage.js returns the whole object, I would just need the metadata. apparently, one can use AWS.S3.headObject but i do not know how. https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html
+  See code in ProjectList using AWS.S3 (configuration to be fixed)
+
+
 TODO
 * Greetings bar: put sign out in navbar
 * Greetings bar: username is ugly. Auth.updateUserAttributes(user, {
@@ -13,19 +22,13 @@ TODO
 * query files by metadata
 -->
 
-## Set up AWS Amplify
-#### Installation
+## Installation
+#### Intall Amplify CLI
 <pre>
-npm install -g @aws-amplify/cli
-cd react-file-repo
-npm install --save aws-amplify-react
+<b>npm install -g @aws-amplify/cli</b>
 </pre>
 
-A new react app needs additional aws packages such as: 
-```aws-amplify aws-amplify-react```. These packages are already present in package.json and can be automatically installed using the 
-```npm run install``` command.
-
-#### Amplify configuration
+#### Configure Amplify
 <pre>
 <b>amplify config</b>          #create or select a user for this project (e.g. 'myapp')
 ? region:  <b>eu-central-1</b>
@@ -36,6 +39,18 @@ Enter the access key of the newly created user:
 ? secretAccessKey:  <b>abcd1234********************</b>
 This would update/create the AWS Profile in your local machine
 ? Profile Name:  <b>aless80</b>
+</pre>
+
+The second command configures the AWS access credentials, AWS Region and sets up a new AWS User Profile.
+
+#### Install this react app
+
+A new react app needs additional aws packages such as: 
+```aws-amplify aws-amplify-react```. These packages are already present in package.json and can be automatically installed with:
+
+<pre>
+cd react-file-repo
+npm run install
 </pre>
 
 #### Amplify initialization
@@ -58,7 +73,7 @@ Using default provider  awscloudformation
 This creates a bucket in [AWS S3](https://s3.console.aws.amazon.com/s3) called `filerepo-env-<number>-deployment`.
 
 #### Add Amazon CloudFront Hosting
-</pre>
+<pre>
 <b>amplify add hosting</b>
 ? Select the environment setup: <b>PROD (S3 with CloudFront using HTTPS)</b>
 ? hosting bucket name <b>filerepo-hosting</b>
@@ -90,6 +105,7 @@ Do you want to configure advanced settings? <b>No, I am done</b>>
 
 This creates a bucket in [AWS S3](https://s3.console.aws.amazon.com/s3) called `filerepo-env`.
 
+<!--
 #### Add an Apollo GraphQL API
 <pre>
 <b>amplify add api</b>
@@ -158,7 +174,7 @@ query getIt {
   }
 }
 ```
-
+-->
 
 <!--
 #### Add a REST API: 
@@ -231,6 +247,38 @@ The code for the lambda function implementing the API is located at ```react-fil
 <b>amplify push</b>
 </pre>
 
+
+#### Additional configurations
+##### Make a bucket public
+This software will upload files to a /public folder in that bucket. To allow anybody to download the files in that folder you will have to grant it public access. To do this manually: 
+* Go to the [AWS Management Console](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwin9ZnQwK3kAhUNkMMKHSyBAcQQFjAAegQIERAC&url=https%3A%2F%2Faws.amazon.com%2Fconsole%2F&usg=AOvVaw3L5ZM1L-1k3SwMWi6qm9p5)
+* Navigate to _S3_ > _filerepo-env_ bucket > Select the _public_ folder > Click the _Actions_ tab > _Make public_
+
+To do the same programmatically try this (I have not tested it yet):
+<pre>
+aws s3api put-object-acl --bucket filerepo-env --key public --acl public-read
+</pre>
+<!--
+TODO: bucket ok? I download from href={`https://ccsestoragebucket-env.s3.eu-central-1.amazonaws.com/public/${file.key}
+-->
+
+##### Edit a bucket's CORS
+This programs can store metadata in S3. To retrieve them, you will have to add CORS. To do this manually: 
+* Go to the [AWS Management Console](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwin9ZnQwK3kAhUNkMMKHSyBAcQQFjAAegQIERAC&url=https%3A%2F%2Faws.amazon.com%2Fconsole%2F&usg=AOvVaw3L5ZM1L-1k3SwMWi6qm9p5)
+* Navigate to _S3_ > Select the _filerepo-env_ bucket > _Permissions_ > CORS configuration > Add the following entries: 
+&nbsp;<pre>
+<ExposeHeader>x-amz-meta-comment</ExposeHeader>
+<ExposeHeader>x-amz-meta-level</ExposeHeader>
+</pre>
+
+To do the same programmatically try this (I have not tested it yet):
+
+<pre>
+aws s3api get-bucket-cors --bucket filerepo-env
+</pre>
+
+
+
 ## Launch the app
 Launch the app with ```npm run start``` and go to [http://localhost:3000/](http://localhost:3000/).
 
@@ -246,8 +294,6 @@ Create a user with an associated email address. Get the verification code to con
 [AWS Amplify API](https://aws-amplify.github.io/docs/ios/api)
 
 [GraphQL Transform](https://aws-amplify.github.io/docs/cli-toolchain/graphql)
-
-[Enable CORS](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html)
 
 #### Tutorials
 

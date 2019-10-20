@@ -62,7 +62,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "csee-cseeenv-20190724142250-deployment",
+					"S3Bucket": "csee-env-20190811174836-deployment",
 					"S3Key": "amplify-builds/ccsefunction-6a556631553654445946-build.zip"
 				}
 			}

@@ -32,7 +32,7 @@ export default class Upload extends Component {
   };
   onFileSelectHandler = event => {
     event.preventDefault();
-    console.log(event.target.files[0]);
+    //console.log(event.target.files[0]);
     if (
       this.maxSelectFile(event) &&
       this.checkMimeType(event) &&
@@ -46,13 +46,12 @@ export default class Upload extends Component {
   onUploadHandler = () => {
     // Get the data in the form
     const formdata = new FormData(this.refs.form);
-
-    //console.log("formdata:", formdata);
-    for (var pair of formdata.entries()) {
-      console.log("  " + pair[0] + ", " + pair[1] + ", type=" + typeof pair);
-    }
     formdata.append("radio", this.state.radio);
+    for (var pair of formdata.entries()) {
+      console.log("  " + pair[0] + ", " + pair[1] + ", type=" + typeof(pair[1]));
+    }    
     this.setState({ formdata });
+
     // Callbacks on uploading
     const onThen = res => {
       toast.success("Upload successful", this.toast_config);

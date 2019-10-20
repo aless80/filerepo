@@ -30,8 +30,8 @@ import {
 import { I18n } from "aws-amplify";
 const dict = {
   en: {
-    Username: "Email",
-    "Enter your username": "Enter your email"
+    Username: "Username",
+    "Enter your username": "Enter your username"
   },
   no: {
     Username: "E-post",

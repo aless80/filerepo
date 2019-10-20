@@ -5,6 +5,9 @@ import awsconfig from "../aws-exports";
 Amplify.configure(awsconfig);
 Storage.configure({ level: "public" });
 
+
+
+
 // AWS.S3: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html
 //used by https://read.acloud.guru/build-your-own-multi-user-photo-album-app-with-react-graphql-and-aws-amplify-374800b22e96
 //const AWS = require('aws-sdk');
@@ -22,7 +25,6 @@ export const put = (formdata, onThen, onCatch, progressCb = prog => {}) => {
     metadata[key] = value;
   });
   delete metadata.file;
-
   // Send to S3
   Storage.put(formdata.get("file").name, formdata.get("file"), {
     level: formdata.get("level"),
@@ -54,27 +56,37 @@ export const put_local = (formdata, onThen, onCatch, progressCb) => {
     });
 };
 
+// List files in S3
 export const list = (dir, level, onThen, onCatch) => {
   Storage.list(dir, {
     level
     //identityId: 'identityId of another user'
   })
     .then(res => {
-      console.log("list('" + dir + "','" + level + "'):");
-      onThen(res)
+      res = res.map(obj => ({ ...obj, dir: dir, level: level, comment: 'comment' }));
+      /*res = res.map(obj => {
+        let comment = get(obj.key, level)
+        return ({ ...obj, dir: dir, level: level, comment: 'comment' })
+      });
+      console.log('list - res:', res)*/
+      onThen(res);
     })
     .catch(err => onCatch(err));
 };
 
 export const get = (filename, level) => {
+  //S3 console > select bucket > Click on Permissions > CORS Configuration
+  //<ExposeHeader>x-amz-meta-comment</ExposeHeader>
+  //<ExposeHeader>x-amz-meta-level</ExposeHeader>
+  //<ExposeHeader>x-amz-meta-radio</ExposeHeader>
   Storage.get(filename, {
     level,
-    expires: 60
+    expires: 60,
+    download: true 
     //identityId: "identityId of another user"
   })
     .then(res => {
-      console.log("get('" + filename + "','" + level + "'):");
-      console.log(res);
+      console.log("get(",filename, ",", level,") - res:",res);
     })
     .catch(err => console.log(err));
 };

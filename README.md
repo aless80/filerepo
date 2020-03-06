@@ -30,7 +30,7 @@ TODO
 
 #### Configure Amplify
 <pre>
-<b>amplify config</b>          #create or select a user for this project (e.g. 'myapp')
+<b>amplify configure</b>          #create or select a user for this project (e.g. 'myapp')
 ? region:  <b>eu-central-1</b>
 Specify the username of the new IAM user:
 ? user name:  <b>aless80</b>

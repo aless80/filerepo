@@ -23,7 +23,7 @@ TODO
 -->
 
 ## Installation
-#### Intall Amplify CLI
+#### Install Amplify CLI
 <pre>
 <b>npm install -g @aws-amplify/cli</b>
 </pre>

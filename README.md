@@ -1,6 +1,5 @@
 # AWS-React-File-Repo 
 
-**WORK IN PROGRESS**
 React app for uploading/downloading files using AWS cloud services (Cognito User Pools, S3 storage, Apollo GraphQL API, etc)
 
 <!--
